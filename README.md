@@ -3,14 +3,14 @@
 This is a Contact Management feature for a CRM system that helps users manage customer or client contact details. It includes functionality to add, view, update, and delete contacts. This tool is designed to help businesses track relationships and ensure the contact list remains up-to-date.
 
 ## Table of Contents
- [Project Overview]
- [Features]
- [Tech Stack]
- [Getting Started]
- [Frontend Setup]
- [Backend Setup]
- [Database Setup]
- [Challenges and Solutions]
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Frontend Setup](#frontend-setup)
+- [Backend Setup](#backend-setup)
+- [Database Setup](#database-setup)
+- [Challenges Faced](#challenges-Faced)
 
 ## Project Overview
 
