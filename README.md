@@ -73,7 +73,7 @@ Add your MongoDB connection settings in the sever.js file.
 
 ### Challenges Faced
 
-To handle API's correctly and test them on **POSTMAN**
+To correctly handle APIs and test them on **POSTMAN**, I implemented the logic for **Sorting** each field in a way that allows the user to select any field and sort it in either ascending or descending order.
 
 
 
