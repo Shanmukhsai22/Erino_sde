@@ -48,17 +48,22 @@ To run the project locally, follow these steps:
    ```bash
    cd client/src
 2. Install dependencies:
+   ```bash
    npm install
 3. Start the frontend server:
+   ```bash
    npm run start
 
 ### Backend Setup
 
 1. Navigate to the server directory:
+   ```bash
    cd server
 2. Install dependencies:
+   ```bash
    npm install
 3. Start the frontend server:
+   ```bash
    npm run server
 
 ### Database Setup
