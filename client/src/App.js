@@ -3,9 +3,9 @@ import axios from 'axios';
 import { 
   Table, TableBody, TableCell, TableContainer, TableHead, 
   TableRow, Paper, Button, TextField, Dialog, DialogTitle, 
-  DialogContent, DialogActions, Pagination 
+  DialogContent, DialogActions, Pagination, IconButton 
 } from '@mui/material';
-import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { Edit as EditIcon, Delete as DeleteIcon, ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import './App.css';
 
 function App() {
@@ -22,21 +22,32 @@ function App() {
   });
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [sortConfig, setSortConfig] = useState({ key: 'firstName', direction: 'asc' });
   const contactsPerPage = 5;
 
   useEffect(() => {
     fetchContacts();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+  }, [page, sortConfig]);
 
   const fetchContacts = async () => {
     try {
       const response = await axios.get(`http://localhost:5000/api/contacts?page=${page}&limit=${contactsPerPage}`);
-      setContacts(response.data.contacts);
+      const sortedContacts = sortContacts(response.data.contacts);
+      setContacts(sortedContacts);
       setTotalPages(Math.ceil(response.data.total / contactsPerPage));
     } catch (error) {
       console.error('Error fetching contacts:', error);
     }
+  };
+
+  const sortContacts = (contacts) => {
+    const { key, direction } = sortConfig;
+    const sorted = [...contacts].sort((a, b) => {
+      if (a[key] < b[key]) return direction === 'asc' ? -1 : 1;
+      if (a[key] > b[key]) return direction === 'asc' ? 1 : -1;
+      return 0;
+    });
+    return sorted;
   };
 
   const handleOpen = () => {
@@ -99,6 +110,15 @@ function App() {
 
   const handlePageChange = (event, value) => {
     setPage(value);
+  };
+
+  // Handle sorting logic
+  const handleSort = (key) => {
+    let direction = 'asc';
+    if (sortConfig.key === key && sortConfig.direction === 'asc') {
+      direction = 'desc';  // Toggle to descending if already ascending
+    }
+    setSortConfig({ key, direction });  // Update sort config
   };
 
   return (
@@ -187,12 +207,30 @@ function App() {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Phone</TableCell>
-              <TableCell>Company</TableCell>
-              <TableCell>Job Title</TableCell>
+              <TableCell onClick={() => handleSort('firstName')}>
+                First Name 
+                {sortConfig.key === 'firstName' && (sortConfig.direction === 'asc' ? <ArrowUpward /> : <ArrowDownward />)}
+              </TableCell>
+              <TableCell onClick={() => handleSort('lastName')}>
+                Last Name
+                {sortConfig.key === 'lastName' && (sortConfig.direction === 'asc' ? <ArrowUpward /> : <ArrowDownward />)}
+              </TableCell>
+              <TableCell onClick={() => handleSort('email')}>
+                Email
+                {sortConfig.key === 'email' && (sortConfig.direction === 'asc' ? <ArrowUpward /> : <ArrowDownward />)}
+              </TableCell>
+              <TableCell onClick={() => handleSort('phone')}>
+                Phone
+                {sortConfig.key === 'phone' && (sortConfig.direction === 'asc' ? <ArrowUpward /> : <ArrowDownward />)}
+              </TableCell>
+              <TableCell onClick={() => handleSort('company')}>
+                Company
+                {sortConfig.key === 'company' && (sortConfig.direction === 'asc' ? <ArrowUpward /> : <ArrowDownward />)}
+              </TableCell>
+              <TableCell onClick={() => handleSort('jobTitle')}>
+                Job Title
+                {sortConfig.key === 'jobTitle' && (sortConfig.direction === 'asc' ? <ArrowUpward /> : <ArrowDownward />)}
+              </TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
